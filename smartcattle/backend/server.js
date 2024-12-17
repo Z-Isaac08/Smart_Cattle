@@ -2,30 +2,25 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-require("dotenv").config();
 
+// Création d'une instance d'application Express
 const app = express();
-const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB Connection
+// Connexion à MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect("mongodb://localhost:27017/BD_Smartcattle", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+ 
 
-// Example API endpoint
-app.get("/", (req, res) => {
-  res.send("Hello from the backend!");
-});
 
-// Start server
+// Démarrer le serveur
+const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
